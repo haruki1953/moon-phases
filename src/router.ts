@@ -1,12 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routerDict } from './config'
 
-import {
-  HomePage,
-  LayoutSimple,
-} from './views'
+import { HomePage, LayoutSimple } from './views'
 import { getAppMainElScrollbarWrap } from './utils'
-
 
 // 路由
 const router = createRouter({
