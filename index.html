@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Moon Phases</title>
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Moon Phases">
+  <meta property="og:description"
+    content="A Moon Phases Calendar and Calculator built with Vue3">
+  <meta property="og:image" content="/social.jpg">
+  <meta property="og:url" content="https://moon-phases.sakiko.top/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Moon Phases">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Moon Phases">
+  <meta name="twitter:description"
+    content="A Moon Phases Calendar and Calculator built with Vue3">
+  <meta name="twitter:image" content="/social.jpg">
+  <meta name="twitter:site" content="@harukiO_0">
+
+  <style>
+    /* 在 index.html 中就初始化必要的颜色，以避免加载过程中的白屏 */
+    :root {
+      --vt-c-white: #ffffff;
+      --vt-c-black: #181818;
+      --vt-c-indigo: #2c3e50;
+      --vt-c-text-light-1: var(--vt-c-indigo);
+      --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+      --color-background: var(--vt-c-white);
+      --color-text: var(--vt-c-text-light-1);
+      --color-text-soft: #6b6b70;
+    }
+
+    :root.dark {
+      --color-background: var(--vt-c-black);
+      --color-text: var(--vt-c-text-dark-2);
+      --color-text-soft: #96969d;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      font-weight: normal;
+    }
+
+    * {
+      /* 窄滚动条 */
+      scrollbar-width: thin;
+      /* 滑块颜色 + 轨道透明 */
+      scrollbar-color: var(--color-text-soft) transparent;
+    }
+
+    html {
+      color: var(--color-text);
+      background: var(--color-background);
+      /* 初始化滚动条，避免加载瞬间的抖动 */
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+
+    body {
+      height: 100vh;
+      color: var(--color-text);
+      background: var(--color-background);
+      transition:
+        color 0.5s,
+        background-color 0.5s;
+      line-height: 1.6;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        'Fira Sans',
+        'Droid Sans',
+        'Helvetica Neue',
+        sans-serif;
+      font-size: 15px;
+      /* font-size: 16px; */
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* 伴随 index.html 的加载遮罩，将在 App.vue onMounted 中取消 */
+    #index-mask {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: inherit;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.3s;
+    }
+
+    #index-loading {
+      transition: opacity 0.3s;
+    }
+
+    #index-loading .decoration-box {
+      width: 100px;
+      height: 100px;
+      /* color: #7899CC; */
+      /* color: var(--color-text); */
+      color: #dcad00;
+      transition: transform 500ms;
+      animation-name: loading;
+      animation-duration: 3000ms;
+      animation-iteration-count: infinite;
+      animation-delay: 2s;
+    }
+
+    @keyframes loading {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      20% {
+        transform: rotate(-5deg);
+      }
+
+      40% {
+        transform: rotate(5deg);
+      }
+
+      60% {
+        transform: rotate(-5deg);
+      }
+
+      80% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  </style>
+  <script>
+    // 立即执行的箭头函数创建局部作用域。防止 scheme、isDarkMode 等变量泄漏到全局。
+    ; (() => {
+      /* 在 index.html 中就初始化颜色，以避免加载过程中的白屏 */
+      // 读取本地存储中的 vueuse-color-scheme 值
+      const scheme = localStorage.getItem('vueuse-color-scheme') || 'auto';
+      // 根据 vueuse-color-scheme 的值设置主题
+      const isDarkMode = scheme === 'dark' || (scheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      document.documentElement.classList.toggle('dark', isDarkMode)
+    })()
+  </script>
+</head>
+
+<body>
+  <div id="index-mask">
+    <div id="index-loading">
+      <div class="decoration-box">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 21.9967C6.47715 21.9967 2 17.5196 2 11.9967C2 6.47386 6.47715 1.9967 12 1.9967C17.5228 1.9967 22 6.47386 22 11.9967C22 17.5196 17.5228 21.9967 12 21.9967ZM5.32889 16.422C6.76378 18.5675 9.20868 19.9803 11.9836 19.9803C16.4018 19.9803 19.9836 16.3985 19.9836 11.9803C19.9836 9.2053 18.5707 6.76034 16.4251 5.32547C17.2705 8.35324 16.5025 11.7369 14.1213 14.1181C11.7401 16.4993 8.3566 17.2672 5.32889 16.422Z">
+          </path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

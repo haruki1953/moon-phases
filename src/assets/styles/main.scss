@@ -1,0 +1,192 @@
+@use './base.css';
+@use './tailwind.css';
+@use './color.scss';
+@use './transition.scss';
+@use './animation.scss';
+@use './element-plus.scss';
+
+// 自定义文字被选中时的背景色和文字颜色
+::selection {
+  background: var(--el-color-primary); /* 选中时的背景色 */
+  color: var(--color-text);       /* 选中时的文字颜色 */
+}
+
+// 有长文本显示的元素最好加这个
+.wrap-long-text {
+  overflow-wrap: anywhere;     /* 尽可能在任意点断行，避免水平滚动，但仍优先保持词完整 */
+  white-space: pre-wrap;       /* 保留空格和换行，同时允许自动换行 */
+}
+
+.nunito-family-text {
+  font-family: 'Nunito', sans-serif;
+}
+
+// 下面是一些自定义的样式类，poto意为PocketTogether
+
+// 自定义的el表单的错误提示样式
+.poto-el-form-line.poto-el-form-line {
+  .el-form-item.is-error .el-input__wrapper.el-input__wrapper {
+    box-shadow: 0 0 0 2px var(--el-color-danger) inset;
+
+    &:hover {
+      box-shadow: 0 0 0 2px var(--el-color-danger) inset;
+    }
+
+    &.is-focus {
+      box-shadow: 0 0 0 2px var(--el-color-danger) inset;
+    }
+  }
+}
+
+// 自定义的el输入框样式，带有2px的线框
+.poto-el-input-line.poto-el-input-line {
+  display: flex;
+  width: 100%;
+  color: var(--color-text);
+
+  &.is-disabled {
+    .el-input__wrapper {
+      background-color: var(--color-background-mute);
+      box-shadow: 0 0 0 2px var(--color-text-soft) inset;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: var(--color-background-mute);
+        box-shadow: 0 0 0 2px var(--color-text-soft) inset;
+      }
+
+      &.is-focus {
+        background-color: var(--color-background-mute);
+        box-shadow: 0 0 0 2px var(--color-text-soft) inset;
+      }
+    }
+  }
+
+  // :deep() {
+  .el-input__wrapper {
+    padding: 1px 20px;
+    border-radius: 9999px;
+    // background-color: var(--color-background);
+    background-color: var(--color-background-soft);
+    // overflow: hidden;
+    box-shadow: 0 0 0 2px var(--color-text-soft) inset;
+    transition: all 150ms;
+
+    &:hover {
+      box-shadow: 0 0 0 2px var(--color-text) inset;
+      background-color: var(--color-background);
+    }
+
+    &.is-focus {
+      box-shadow: 0 0 0 2px var(--el-color-primary) inset;
+      background-color: var(--color-background);
+    }
+
+    .el-input__inner {
+      margin-left: 5px;
+      color: var(--color-text);
+
+      &::placeholder {
+        color: var(--color-text-soft);
+      }
+    }
+  }
+
+  .el-input__prefix {
+    color: var(--color-text);
+  }
+
+  // .el-input-number__decrease,
+  // .el-input-number__increase {
+  //   background-color: transparent;
+  //   transition:
+  //     border 0.5s,
+  //     color 0.2s;
+  // }
+
+  // 解决浏览器自动填充时默认样式问题
+  input:-internal-autofill-selected {
+    appearance: none !important;
+    background-color: transparent !important; // 非常奇怪，这个不管用
+    color: var(--color-text) !important;
+    // 必须要用像下面一样的特殊手段才管用
+    // transition: background-color 0s 600000s, color 0s 600000s !important;
+    // https://stackoverflow.com/questions/61083813/how-to-avoid-internal-autofill-selected-style-to-be-applied
+    // 自己改了一下
+    transition: background-color 0s 600000s !important;
+  }
+
+  input:-webkit-autofill {
+    // -webkit-autofill也是必要的
+    background-color: transparent !important;
+    // transition: background-color 0s 600000s, color 0s 600000s !important;
+    transition: background-color 0s 600000s !important;
+  }
+
+  .el-textarea__inner {
+    padding: 10px 20px;
+    border-radius: 20px;
+    // background-color: var(--color-background);
+    background-color: var(--color-background-soft);
+    box-shadow: 0 0 0 2px var(--color-text-soft) inset;
+    transition:
+      background-color 150ms,
+      box-shadow 150ms;
+    color: var(--color-text);
+
+    &::placeholder {
+      color: var(--color-text-soft);
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 2px var(--color-text) inset;
+      background-color: var(--color-background);
+    }
+
+    &.is-focus {
+      box-shadow: 0 0 0 2px var(--el-color-primary) inset;
+      background-color: var(--color-background);
+    }
+  }
+
+  // }
+}
+
+// 设置页中的按钮盒子样式
+.poto-setting-button-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 500px) {
+    justify-content: center;
+
+    &.not-center {
+      justify-content: flex-end;
+    }
+
+    &.center-mt-3 {
+      margin-top: 12px;
+    }
+  }
+
+  .el-button {
+    margin-top: 4px;
+
+    span,
+    .el-icon {
+      // color: var(--color-background);
+      font-weight: bold;
+    }
+
+    &.el-button--small {
+
+      span,
+      .el-icon {
+        // color: var(--color-background);
+        font-weight: normal;
+      }
+    }
+  }
+}

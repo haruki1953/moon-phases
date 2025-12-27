@@ -1,0 +1,154 @@
+{
+  "main": {
+    "id": "b266ca29dd855fea",
+    "type": "split",
+    "children": [
+      {
+        "id": "4e4b2decce8ef9c5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "89c5a77faa2d2163",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "草稿/251227-月相日历实现.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "24eb846d875b861b",
+    "type": "split",
+    "children": [
+      {
+        "id": "875acba92fa7edf5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "845788216d2d6ba7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ad01cf62f208fee8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "425183a827609a82",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "32a39f761ac0b5af",
+    "type": "split",
+    "children": [
+      {
+        "id": "29038b70b62fd9b1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "05c4c414e156b3e6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "草稿/251227-月相日历实现.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "19a27b9a0e8a3b99",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "草稿/251227-月相日历实现.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "caff02b492ac1463",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "71a388e288b47230",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "草稿/251227-月相日历实现.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "89c5a77faa2d2163",
+  "lastOpenFiles": [
+    "README.md",
+    "草稿/251227-月相日历实现.md",
+    "草稿"
+  ]
+}
