@@ -21,6 +21,12 @@
 }
 
 // 转圈
+.loading-spinner-3s {
+  animation: spin 3s linear infinite;
+}
+.loading-spinner-2s {
+  animation: spin 3s linear infinite;
+}
 .loading-spinner-1s {
   animation: spin 1s linear infinite;
 }

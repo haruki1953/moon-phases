@@ -18,7 +18,27 @@ const nasaBackGroundImage = computed(() => {
 <template>
   <div class="aspect-square">
     <div class="relative h-full">
-      <!-- 三个图层 -->
+      <!-- 图片未加载完成就会显示最底部的加载动画 -->
+      <div class="absolute bottom-0 left-0 right-0 top-0">
+        <div class="flex h-full items-center justify-center">
+          <div class="aspect-[1] w-[95%]">
+            <div class="h-full rounded-full bg-color-background-soft"></div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="absolute bottom-0 left-0 right-0 top-0">
+        <div class="flex h-full items-center justify-center">
+          <div class="aspect-[1] w-[80%]">
+            <div class="h-full text-color-background-mute">
+              <RiLoader2Line
+                size="100%"
+                class="loading-spinner-2s"
+              ></RiLoader2Line>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- 月相日历主要的三个图层 -->
       <div class="absolute bottom-0 left-0 right-0 top-0">
         <div class="relative h-full">
           <!-- 日期轮 -->
