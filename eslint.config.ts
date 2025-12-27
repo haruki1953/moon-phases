@@ -10,7 +10,7 @@ import eslintPluginPrettier from 'eslint-plugin-prettier'
 import vueEslintParser from 'vue-eslint-parser'
 // pnpm install --save-dev eslint-plugin-prettier vue-eslint-parser
 
-import pluginQuery from '@tanstack/eslint-plugin-query'
+// import pluginQuery from '@tanstack/eslint-plugin-query'
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
@@ -39,7 +39,7 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
   skipFormatting,
   [
-    ...pluginQuery.configs['flat/recommended'],
+    // ...pluginQuery.configs['flat/recommended'],
     {
       plugins: {
         prettier: eslintPluginPrettier,
@@ -50,7 +50,12 @@ export default defineConfigWithVueTs(
         parser: vueEslintParser,
         parserOptions: {
           parser: '@typescript-eslint/parser', // vue-eslint-parser 转发给 ts 解析器
-          project: './tsconfig.json', // 必须指定 tsconfig.json 路径，开启类型信息
+          // 【251227】
+          // 由于新项目在复制后删除了 pnpm-lock.yaml 并重新安装依赖，
+          // 导致 @vue/eslint-config-typescript 所依赖的 @typescript-eslint/parser 等包被解析为较新的版本。
+          // 这些新版本默认启用了 projectService，与手动配置的 project 互斥，
+          // 因此需要在新项目中注释掉 project 才能避免冲突。
+          // project: './tsconfig.json',
           extraFileExtensions: ['.vue'],
           ecmaVersion: 2020,
           sourceType: 'module',
