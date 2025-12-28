@@ -20,7 +20,7 @@
 </p>
 
 - 一个使用 Vue3 构建的月相日历和计算器。
-- 预览： https://moon-phases.sakiko.top
+- 预览： https://moon-phases.pages.dev
 - 项目地址： https://github.com/haruki1953/moon-phases
 
 ![](assets/image.png)

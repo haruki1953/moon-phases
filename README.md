@@ -20,7 +20,7 @@
 </p>
 
 - A Moon Phases Calendar and Calculator built with Vue3.
-- Preview: https://moon-phases.sakiko.top
+- Preview: https://moon-phases.pages.dev
 - Repository: https://github.com/haruki1953/moon-phases
 
 ![](assets/image.png)
