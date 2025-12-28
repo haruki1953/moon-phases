@@ -1,4 +1,12 @@
+import { appSound1, appSound2, appSound3 } from '@/config'
+import { useSound } from '@vueuse/sound'
+
 export const useMoonRotation = () => {
+  // 音效
+  const wheelRotateBaseSound = useSound(appSound1, { volume: 0.25 })
+  const wheelRotateQuickSound = useSound(appSound2, { volume: 0.25 })
+  const overallRotateSound = useSound(appSound3, { volume: 0.25 })
+
   // 基于月相轮与日期轮的旋转
   const rotationWheelVal = ref(0)
   const rotationWheelValMin = computed(() => 0)
@@ -11,11 +19,13 @@ export const useMoonRotation = () => {
     () => rotationWheelVal.value < rotationWheelValMax.value
   )
   const rotationWheelBaseIncrease = () => {
+    if (!canRotationWheelBaseIncrease.value) return
     rotationWheelVal.value =
       rotationWheelVal.value + rotationWheelBaseStep.value
     if (rotationWheelVal.value > rotationWheelValMax.value) {
       rotationWheelVal.value = rotationWheelValMax.value
     }
+    wheelRotateBaseSound.play()
   }
 
   // rotationWheelVal 减少 decrease
@@ -23,11 +33,13 @@ export const useMoonRotation = () => {
     () => rotationWheelVal.value > rotationWheelValMin.value
   )
   const rotationWheelBaseDecrease = () => {
+    if (!canRotationWheelBaseDecrease.value) return
     rotationWheelVal.value =
       rotationWheelVal.value - rotationWheelBaseStep.value
     if (rotationWheelVal.value < rotationWheelValMin.value) {
       rotationWheelVal.value = rotationWheelValMin.value
     }
+    wheelRotateBaseSound.play()
   }
 
   // rotationWheelVal 快速增加
@@ -35,11 +47,13 @@ export const useMoonRotation = () => {
     () => rotationWheelVal.value < rotationWheelValMax.value
   )
   const rotationWheelQuickIncrease = () => {
+    if (!canRotationWheelQuickIncrease.value) return
     rotationWheelVal.value =
       rotationWheelVal.value + rotationWheelQuickStep.value
     if (rotationWheelVal.value > rotationWheelValMax.value) {
       rotationWheelVal.value = rotationWheelValMax.value
     }
+    wheelRotateQuickSound.play()
   }
 
   // rotationWheelVal 快速减少
@@ -47,11 +61,13 @@ export const useMoonRotation = () => {
     () => rotationWheelVal.value > rotationWheelValMin.value
   )
   const rotationWheelQuickDecrease = () => {
+    if (!canRotationWheelQuickDecrease.value) return
     rotationWheelVal.value =
       rotationWheelVal.value - rotationWheelQuickStep.value
     if (rotationWheelVal.value < rotationWheelValMin.value) {
       rotationWheelVal.value = rotationWheelValMin.value
     }
+    wheelRotateQuickSound.play()
   }
 
   // 月相轮的角度系数
@@ -90,12 +106,14 @@ export const useMoonRotation = () => {
   const rotationOverallIncrease = () => {
     rotationOverallVal.value =
       rotationOverallVal.value + rotationOverallStep.value
+    overallRotateSound.play()
   }
 
   // rotationOverallVal 减少
   const rotationOverallDecrease = () => {
     rotationOverallVal.value =
       rotationOverallVal.value - rotationOverallStep.value
+    overallRotateSound.play()
   }
 
   const rotationOverallAngleCoefficient = computed(() => 360 / 8)
