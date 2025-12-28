@@ -32,4 +32,8 @@
   // 控制 Vue 组件 props 补全时的命名风格
   "vue.complete.casing.props": "autoCamel",
   "vue.complete.casing.tags": "autoPascal",
+  "markdown.copyFiles.destination": {
+    // "**/*": "./assets/${documentBaseName}/${fileName}"
+    "**/*": "./assets/${fileName}"
+  },
 }

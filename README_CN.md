@@ -16,26 +16,25 @@
 </p>
 
 <p align="center">
-  English | <a href="./README_CN.md">简体中文</a>
+  <a href="./README.md">English</a> | 简体中文
 </p>
 
-- A Moon Phases Calendar and Calculator built with Vue3.
-- Preview: https://moon-phases.sakiko.top
-- Repository: https://github.com/haruki1953/moon-phases
+- 一个使用 Vue3 构建的月相日历和计算器。
+- 预览： https://moon-phases.sakiko.top
+- 项目地址： https://github.com/haruki1953/moon-phases
 
 ![](assets/image.png)
 
 <details>
-<summary>📸 <b>More Screenshots</b></summary>
+<summary>📸 <b>更多预览</b></summary>
 
 ![](assets/image-1.png)
 
 </details>
 
-NASA’s moon‑phase calendar is so much fun:
+NASA 的这个月相日历好有趣：
 https://www.jpl.nasa.gov/edu/resources/project/make-a-moon-phases-calendar-and-calculator/
 
 ![](assets/collage251228.jpg)
 
-
-When I first saw this tweet, I immediately wanted to make one myself — but I don’t have a color printer. What should I do? Then it hit me: why not recreate it with frontend tech? It’s basically a cyber‑DIY project at this point.
+刚看到这条推文时就想马上做一个，但是自己没有彩色打印机，怎么办呢？于是想到了用前端来做这个，也算是做上赛博手工了（
