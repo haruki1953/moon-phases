@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  release:
+    types: [published]   # 当发布 Release 时触发
+  workflow_dispatch:     # 也允许手动触发
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  id-token: write        # 用于 OIDC 身份令牌，生成签名证明
+  contents: write        # 需要写权限才能上传 Release 资产，同时包含读权限
+  attestations: write    # 写入 attestation 记录
+
+# 可能要用到
+# svenstaro/upload-release-action@v2
+# actions/attest-build-provenance@v3
+# 前端build后（在dist），一般是不是都要压缩为一个.zip文件，Release上传这个.zip文件
+
+jobs:
+  vue3-ci:
+    name: Vue3 Type Check & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.8.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: Type Check
+        run: |
+          pnpm type-check
+
+      - name: Build
+        run: |
+          pnpm build
+
+      # --- 打包 dist 为 zip ---
+      - name: Compress dist folder
+        run: |
+          cd dist
+          zip -r ../dist.zip .
+        shell: bash
+
+      # --- 上传到 Release ---
+      - name: Upload Release Asset
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: dist.zip
+          asset_name: dist.zip
+          tag: ${{ github.ref_name }}
+          overwrite: true
+
+      # --- 生成构建溯源 attestation ---
+      - name: Generate build provenance
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: dist.zip

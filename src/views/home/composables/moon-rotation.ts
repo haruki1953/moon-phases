@@ -88,7 +88,8 @@ export const useMoonRotation = () => {
   const rotationWheelCalendarAngleCoefficient = computed(() => -(360 / 103))
   // 日历轮的角度基础偏移
   const rotationWheelCalendarAngleBaseOffset = computed(
-    () => 1.5 * rotationWheelCalendarAngleCoefficient.value
+    // 1.5
+    () => 1.46 * rotationWheelCalendarAngleCoefficient.value
   )
   // 用于日历轮的旋转角度
   const rotationWheelCalendarAngleTransformRotate = computed(() => {
