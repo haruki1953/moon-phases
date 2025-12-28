@@ -29,26 +29,26 @@ useFirstDataLoadingAndAnimationMaskClose({
 const isDark = useDark()
 
 // el滚动条的组件实例。【251017】不再使用HTML页面级滚动，使用el滚动条
-const appMainElScrollbar: AppMainElScrollbar = ref(null)
-provideAppMainElScrollbar(appMainElScrollbar)
+// const appMainElScrollbar: AppMainElScrollbar = ref(null)
+// provideAppMainElScrollbar(appMainElScrollbar)
 </script>
 
 <template>
-  <!-- NConfigProvider 主题控制 国际化控制 -->
-  <NConfigProvider
-    :theme="isDark ? darkTheme : lightTheme"
-  >
+  <div>
+    <!-- NConfigProvider 主题控制 国际化控制 -->
+    <!-- <NConfigProvider :theme="isDark ? darkTheme : lightTheme"> -->
     <!-- ElConfigProvider 国际化控制 -->
-    <ElConfigProvider>
-      <ElScrollbar
+    <!-- <ElConfigProvider> -->
+    <!-- <ElScrollbar
         ref="appMainElScrollbar"
         height="100vh"
         class="appMainElScrollbar"
-      >
-        <RouterView></RouterView>
-      </ElScrollbar>
-    </ElConfigProvider>
-  </NConfigProvider>
+      > -->
+    <RouterView></RouterView>
+    <!-- </ElScrollbar> -->
+    <!-- </ElConfigProvider> -->
+    <!-- </NConfigProvider> -->
+  </div>
 </template>
 
 <style scoped lang="scss"></style>

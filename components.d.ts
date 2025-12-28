@@ -25,6 +25,8 @@ declare module 'vue' {
     RiResetLeftLine: typeof import('@remixicon/vue')['RiResetLeftLine']
     RiResetRightLine: typeof import('@remixicon/vue')['RiResetRightLine']
     RiSunLine: typeof import('@remixicon/vue')['RiSunLine']
+    RiZoomInLine: typeof import('@remixicon/vue')['RiZoomInLine']
+    RiZoomOutLine: typeof import('@remixicon/vue')['RiZoomOutLine']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

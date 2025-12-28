@@ -41,12 +41,12 @@ router.afterEach((to, from) => {
   if (to.path === from.path) {
     return
   }
-  // 回到顶部（不使用页面原生滚动条，使用的是自设的滚动条）
-  const appMainElScrollbarWrap = getAppMainElScrollbarWrap()
-  appMainElScrollbarWrap?.scrollTo({
-    top: 0,
-    behavior: 'instant',
-  })
+  // // 回到顶部（不使用页面原生滚动条，使用的是自设的滚动条）
+  // const appMainElScrollbarWrap = getAppMainElScrollbarWrap()
+  // appMainElScrollbarWrap?.scrollTo({
+  //   top: 0,
+  //   behavior: 'instant',
+  // })
 })
 
 export default router

@@ -5,8 +5,17 @@ import {
   app_26_Moon_Calendar_Color_Wheel_3,
   appNasaLogo,
 } from '@/config'
+import type { MoonRotationType } from './dependencies'
 
-console.log(appNasaLogo)
+const props = defineProps<{
+  moonRotation: MoonRotationType
+}>()
+
+const {
+  rotationWheelPhasesAngleTransformRotate,
+  rotationWheelCalendarAngleTransformRotate,
+  rotationOverallAngleTransformRotate,
+} = props.moonRotation
 
 const nasaBackGroundImage = computed(() => {
   // 这是svg，很特殊，不能用单引号，只能用双引号，
@@ -16,7 +25,7 @@ const nasaBackGroundImage = computed(() => {
 </script>
 
 <template>
-  <div class="aspect-square">
+  <div class="aspect-square overflow-hidden rounded-full">
     <div class="relative h-full">
       <!-- 图片未加载完成就会显示最底部的加载动画 -->
       <div class="absolute bottom-0 left-0 right-0 top-0">
@@ -40,12 +49,20 @@ const nasaBackGroundImage = computed(() => {
       </div> -->
       <!-- 月相日历主要的三个图层 -->
       <div class="absolute bottom-0 left-0 right-0 top-0">
-        <div class="relative h-full">
+        <div
+          class="relative h-full transition-transform duration-500"
+          :style="{
+            // 整体旋转控制
+            transform: `rotate(${rotationOverallAngleTransformRotate})`,
+          }"
+        >
           <!-- 日期轮 -->
           <div class="absolute bottom-0 left-0 right-0 top-0">
             <div
-              class="relative h-full bg-cover bg-center"
+              class="relative h-full bg-cover bg-center transition-transform duration-500"
               :style="{
+                // 日期轮/日历轮旋转控制
+                transform: `rotate(${rotationWheelCalendarAngleTransformRotate})`,
                 'background-image': `url('${app_26_Moon_Calendar_Color_Wheel_3}')`,
               }"
             ></div>
@@ -53,8 +70,10 @@ const nasaBackGroundImage = computed(() => {
           <!-- 月相轮 -->
           <div class="absolute bottom-0 left-0 right-0 top-0">
             <div
-              class="relative h-full bg-cover bg-center"
+              class="relative h-full bg-cover bg-center transition-transform duration-500"
               :style="{
+                // 月相轮旋转控制
+                transform: `rotate(${rotationWheelPhasesAngleTransformRotate})`,
                 'background-image': `url('${app_26_Moon_Calendar_Color_Wheel_2}')`,
               }"
             ></div>

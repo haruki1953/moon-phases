@@ -14,8 +14,9 @@
 }
 
 html {
-  overflow-y: hidden;
-  overflow-x: hidden;
+  /* overflow-y: hidden; */
+  /* overflow-x: hidden; */
+  overflow: auto;
   color: var(--color-text);
   background: var(--color-background);
   transition:
@@ -23,7 +24,7 @@ html {
 }
 
 body {
-  height: 100vh;
+  /* height: 100vh; */
   color: var(--color-text);
   background: var(--color-background);
   transition:

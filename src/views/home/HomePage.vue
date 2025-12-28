@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { useDark, useWindowSize } from '@vueuse/core'
-import { MoonPhasesCalendarWheel } from './components'
+import {
+  MoonButtonGroupDarkProject,
+  MoonButtonGroupLeft,
+  MoonButtonGroupRight,
+  MoonButtonGroupZoom,
+  MoonPhasesCalendarWheel,
+} from './components'
+import { useMoonRotation, useZoomControl } from './composables'
 
 // 宽屏
 // 左右需空出的距离
@@ -10,13 +17,25 @@ const layoutBigYDistanceNeedFree = 20 as const
 
 const windowSize = useWindowSize()
 
+// 控制缩放
+const zoomControl = useZoomControl()
+const { controlZoomVal } = zoomControl
+
+// 控制旋转
+const moonRotation = useMoonRotation()
+
+// 内容布局
 // width 负责保证左右空出
-// width: 'calc(100% - 200px)'
 // maxWidth 负责保证上下空出
-// maxWidth: contentMaxWidthOnLayoutBig
 const contentWidthOnLayoutBig = computed(() => {
   const layoutBigXDistanceNeedFreeX2 = layoutBigXDistanceNeedFree * 2
-  return `calc(100% - ${layoutBigXDistanceNeedFreeX2}px)` as const
+  const widthNum = windowSize.width.value - layoutBigXDistanceNeedFreeX2
+  if (widthNum <= 0) {
+    return undefined
+  }
+  const widthNumWithZoom = widthNum * controlZoomVal.value
+  return `${widthNumWithZoom}px` as const
+  // return 'calc(100% - 200px)' as const
 })
 const contentMaxWidthOnLayoutBig = computed(() => {
   const layoutBigYDistanceNeedFreeX2 = layoutBigYDistanceNeedFree * 2
@@ -24,76 +43,49 @@ const contentMaxWidthOnLayoutBig = computed(() => {
   if (maxWidthNum <= 0) {
     return undefined
   }
-  return `${maxWidthNum}px` as const
+  const maxWidthNumWithZoom = maxWidthNum * controlZoomVal.value
+  return `${maxWidthNumWithZoom}px` as const
 })
-
-const isDark = useDark()
 </script>
 
 <template>
   <div>
     <!-- 宽屏 中间为内容 两侧为按钮 -->
     <div>
-      <div class="flex h-screen items-center justify-center">
+      <div
+        class="relative flex min-h-screen w-max min-w-full items-center justify-center"
+      >
         <!-- 左侧按钮 -->
-        <div class="text-color-text">
-          <!-- 左单箭头 日期轮走1格 -->
-          <div class="m-4 cursor-pointer">
-            <RiArrowLeftSLine size="30px"></RiArrowLeftSLine>
-          </div>
-          <!-- 左双箭头 日期轮走8格 即一个月 -->
-          <div class="m-4 cursor-pointer">
-            <RiArrowLeftDoubleLine size="30px"></RiArrowLeftDoubleLine>
-          </div>
-          <!-- 逆时针旋转 整体逆时针旋转45度 -->
-          <div class="m-4 cursor-pointer">
-            <RiResetLeftLine size="30px"></RiResetLeftLine>
-          </div>
-          <!-- 明暗切换 -->
-          <div class="m-4 cursor-pointer" @click="isDark = !isDark">
-            <RiMoonLine v-if="isDark" size="30px"></RiMoonLine>
-            <RiSunLine v-else size="30px"></RiSunLine>
-          </div>
+        <div>
+          <MoonButtonGroupLeft
+            :moonRotation="moonRotation"
+          ></MoonButtonGroupLeft>
         </div>
         <!-- 内容 -->
         <div
-          class=""
+          class="my-4 shrink-0 transition-all duration-500"
           :style="{
             width: contentWidthOnLayoutBig,
             maxWidth: contentMaxWidthOnLayoutBig,
           }"
         >
-          <MoonPhasesCalendarWheel></MoonPhasesCalendarWheel>
-          <!-- <div
-            class="aspect-square bg-cover bg-center"
-            :style="{
-              backgroundImage: `url('${app_26_Moon_Calendar_Color_Wheel_3}')`,
-            }"
-          ></div> -->
+          <MoonPhasesCalendarWheel
+            :moonRotation="moonRotation"
+          ></MoonPhasesCalendarWheel>
         </div>
         <!-- 右侧按钮 -->
-        <div class="text-color-text">
-          <!-- 右单箭头 -->
-          <div class="m-4 cursor-pointer">
-            <RiArrowRightSLine size="30px"></RiArrowRightSLine>
-          </div>
-          <!-- 右双箭头 -->
-          <div class="m-4 cursor-pointer">
-            <RiArrowRightDoubleLine size="30px"></RiArrowRightDoubleLine>
-          </div>
-          <!-- 顺时针旋转 -->
-          <div class="m-4 cursor-pointer">
-            <RiResetRightLine size="30px"></RiResetRightLine>
-          </div>
-          <!-- 项目地址 -->
-          <a
-            class="m-4 block cursor-pointer"
-            href="https://github.com/haruki1953/moon-phases"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <RiGithubLine size="30px"></RiGithubLine>
-          </a>
+        <div>
+          <MoonButtonGroupRight
+            :moonRotation="moonRotation"
+          ></MoonButtonGroupRight>
+        </div>
+        <!-- 明暗切换与项目地址按钮 -->
+        <div class="absolute bottom-0 right-0">
+          <MoonButtonGroupDarkProject></MoonButtonGroupDarkProject>
+        </div>
+        <!-- 缩放按钮组 -->
+        <div class="absolute bottom-0 left-0">
+          <MoonButtonGroupZoom :zoomControl="zoomControl"></MoonButtonGroupZoom>
         </div>
       </div>
     </div>
